@@ -8,11 +8,13 @@ const { usersRoute } = require("./routes/user.routes");
 const { authenticate } = require("./middlewere/Authentication.middlewere");
 const { ProductRoute } = require("./routes/Product.route");
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  next();
-});
 app.use(express.json());
+
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 app.get("/", (req, res) => {
   res.send("Welcome to the Apna Bazar");
