@@ -8,11 +8,10 @@ const { usersRoute } = require("./routes/user.routes");
 const { authenticate } = require("./middlewere/Authentication.middlewere");
 const { ProductRoute } = require("./routes/Product.route");
 
-app.use(
-  cors({
-    origin: "*",
-  })
-);
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
 app.use(express.json());
 
 app.get("/", (req, res) => {
