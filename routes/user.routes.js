@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const usersRoute = express.Router();
 const { RegisterModule } = require("../models/user.model");
-const KEY = process.env.key;
+
 const bcrypt = require("bcrypt");
 
 //registered data using signup page
@@ -105,7 +105,7 @@ usersRoute.post("/login", async (req, res) => {
     if (user.length > 0) {
       bcrypt.compare(password, user[0].password, function (err, result) {
         if (result) {
-          const token = jwt.sign({ userID: user[0]._id }, KEY, {
+          const token = jwt.sign({ userID: user[0]._id }, "masai", {
             expiresIn: "10h",
           });
 
@@ -141,6 +141,23 @@ usersRoute.patch("/cart",async(req,res)=>{
   data.cart.push(payload)
   data.save()
   res.send({"message":"Data saved successfully"})
+})
+usersRoute.patch("/addWishlist",async(req,res)=>{
+  let {email}=req.query
+  let payload=req.body
+  let data=await RegisterModule.findOne({email:email})
+  data.wishlist.push(payload)
+  data.save()
+  res.send({"message":"Data saved successfully"})
+})
+
+usersRoute.patch("/deleteCart",async(req,res)=>{
+  let {email}=req.query
+  let payload=req.body
+  let data=await RegisterModule.findOne({email:email})
+  data.cart.pull(payload)
+  data.save()
+  res.send({"message":"Data deleted successfully"})
 })
 
 module.exports = {
