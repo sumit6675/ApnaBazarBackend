@@ -13,10 +13,10 @@ const ProductSchema = mongoose.Schema({
   ],
   selection2:String,
   category: String,
-  rating: Number
+  rating: Number,
 });
 
 const ProductModule = mongoose.model("product", ProductSchema);
 module.exports = {
-  ProductModule
+  ProductModule,
 };
