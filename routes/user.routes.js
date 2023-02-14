@@ -142,15 +142,15 @@ usersRoute.patch("/cart", async (req, res) => {
 });
 
 // usersRoute.patch("/handleqty", async (req, res) => {
-//   // let { email, id } = req.query;
-//   // let data = await RegisterModule.findOne({'email':email},{'cart._id':id},(err,doc)=>{
-//   //   if(err){
-//   //     console.log(err)
-//   //   }else{
-//   //     console.log(doc)
-//   //     res.send(doc);
-//   //   }
-//   // })
+//   let { email, id } = req.query;
+//   let data = await RegisterModule.findOne({'email':email},{'cart._id':id},(err,doc)=>{
+//     if(err){
+//       console.log(err)
+//     }else{
+//       console.log(doc)
+//       res.send(doc);
+//     }
+//   })
 //   const userId = "63d8f31c259add9dd25f1876"; // the user ID
 //   const wishlistItemId = "63dab1bd25c1ca87fb9d6932"; // the wishlist item ID
 //   const qtyToDecrease = 1; // the amount to decrease the qty field by
@@ -176,6 +176,16 @@ usersRoute.patch("/addWishlist", async (req, res) => {
   res.send({ message: "Data saved successfully" });
 });
 
+usersRoute.patch("/addOrder", async (req, res) => {
+  let { email } = req.query;
+  let payload = req.body;
+  let data = await RegisterModule.findOne({ email: email });
+  data.orders.push(...payload);
+  data.cart = [];
+  data.save();
+  res.send({ message: "Data saved successfully" });
+});
+
 usersRoute.patch("/addAdress", async (req, res) => {
   let { email } = req.query;
   let payload = req.body;
@@ -197,5 +207,5 @@ usersRoute.patch("/deleteCart", async (req, res) => {
 });
 
 module.exports = {
-  usersRoute
+  usersRoute,
 };
