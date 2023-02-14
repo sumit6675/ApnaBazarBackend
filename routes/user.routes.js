@@ -197,5 +197,5 @@ usersRoute.patch("/deleteCart", async (req, res) => {
 });
 
 module.exports = {
-  usersRoute,
+  usersRoute
 };
