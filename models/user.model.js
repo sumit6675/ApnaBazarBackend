@@ -6,7 +6,10 @@ const registerSchema = mongoose.Schema({
   password: { type: String, required: true },
   cart:[],
   orders:[],
-  wishlist:[]
+  wishlist:[],
+  address:[],
+  pincode:Number,
+  City:String
 });
 
 const RegisterModule = mongoose.model("users", registerSchema);
