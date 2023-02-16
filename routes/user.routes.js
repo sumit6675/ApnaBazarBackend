@@ -206,6 +206,24 @@ usersRoute.patch("/deleteCart", async (req, res) => {
   res.send({ message: "Data deleted successfully" });
 });
 
+usersRoute.patch("/updateuser",async(req,res)=>{
+  let { id } = req.query;
+  let payload = req.body;
+ try{
+  await RegisterModule.findByIdAndUpdate(id,payload,(err,doc)=>{
+    if(err){
+      res.send(err)
+    }else{
+      console.log("Data updated successfully")
+      res.send(doc);
+    }
+  })
+ }catch(err){
+  console.log(err)
+ }
+
+})
+
 module.exports = {
   usersRoute,
 };
